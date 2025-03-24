@@ -10,16 +10,36 @@ namespace ProjectAccessManagement.Domain.Entities
 {
     public class Application
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public ApplicationType AppType { get; set; }
+        public Guid Id { get; private set; } = Guid.NewGuid();
+        public string Name { get; private set; }
+        public ApplicationType AppType { get; private set; }
 
-        public ICollection<Module> Modules { get; set; } = [];
+        public ICollection<Module> Modules { get; private set; } = [];
 
         public Application(string name, ApplicationType appType)
         {
             Name = name;
             AppType = appType;
+        }
+
+        public void AddModule(string moduleName)
+        {
+            if (Modules.Any(m => m.Name == moduleName))
+            {
+                throw new InvalidOperationException($"Module named '{moduleName}' already exists in application '{Name}'.");
+            }
+            var newModule = new Module(moduleName, this);
+            Modules.Add(newModule);
+        }
+
+        public void RemoveModule(string moduleName)
+        {
+            var module = Modules.FirstOrDefault(m => m.Name == moduleName);
+            if (module == null)
+            {
+                throw new InvalidOperationException($"Module named '{moduleName}' does not exist in application '{Name}'.");
+            }
+            Modules.Remove(module);
         }
     }
 }

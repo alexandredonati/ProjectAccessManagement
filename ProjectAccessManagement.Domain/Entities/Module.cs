@@ -8,8 +8,14 @@ namespace ProjectAccessManagement.Domain.Entities
 {
     public class Module
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public Application Application { get; set; }
+        public Guid Id { get; private set; } = Guid.NewGuid();
+        public string Name { get; private set; }
+        public Application Application { get; private set; }
+
+        public Module(string name, Application application)
+        {
+            Name = name;
+            Application = application;
+        }
     }
 }

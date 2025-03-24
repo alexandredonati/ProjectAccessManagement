@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Domain", "ProjectAccessManagement.Domain\ProjectAccessManagement.Domain.csproj", "{10A9C900-6AAC-4D16-A7F6-80315CDF5DEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Repository", "ProjectAccessManagement.Repository\ProjectAccessManagement.Repository.csproj", "{641310A8-0BF3-4E0E-B408-2B33A953C57B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Tests", "ProjectAccessManagement.Tests\ProjectAccessManagement.Tests.csproj", "{4F5BCE02-FF14-4FFE-8FC0-36275CD67985}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{641310A8-0BF3-4E0E-B408-2B33A953C57B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{641310A8-0BF3-4E0E-B408-2B33A953C57B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{641310A8-0BF3-4E0E-B408-2B33A953C57B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F5BCE02-FF14-4FFE-8FC0-36275CD67985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F5BCE02-FF14-4FFE-8FC0-36275CD67985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F5BCE02-FF14-4FFE-8FC0-36275CD67985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F5BCE02-FF14-4FFE-8FC0-36275CD67985}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
