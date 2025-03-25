@@ -12,13 +12,13 @@ namespace ProjectAccessManagement.Domain.Entities
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
-        public Application Application { get; private set; }
+        public App Application { get; private set; }
         public CredentialType CredentialType { get; private set; }
-        public DateTime ExpireDate { get; private set; } = DateTime.MaxValue;
+        public DateTime ExpiryDate { get; private set; } = DateTime.MaxValue;
         public bool AllowsMultiAccess { get; private set; }
         public ICollection<Module> Modules { get; private set; } = [];
 
-        public Credential(string credentialName, Application application, CredentialType type)
+        public Credential(string credentialName, App application, CredentialType type)
         {
             if (application == null)
             {
@@ -29,17 +29,21 @@ namespace ProjectAccessManagement.Domain.Entities
             CredentialType = type;
         }
 
-        public Credential(string credentialName, Application application, CredentialType type, DateTime expireDate)
+        public Credential(string credentialName, App application, CredentialType type, DateTime expireDate)
         {
+            if (application == null)
+            {
+                throw new ArgumentNullException("Application cannot be null.");
+            };
             Name = credentialName;
             Application = application;
             CredentialType = type;
-            ExpireDate = expireDate;
+            ExpiryDate = expireDate;
         }
 
         public void UpdateExpireDate(DateTime newDate)
         {
-            ExpireDate = newDate;
+            ExpiryDate = newDate;
         }
 
         public void SetMultiAccess(bool allow)
@@ -49,7 +53,7 @@ namespace ProjectAccessManagement.Domain.Entities
 
         public bool IsExpired()
         {
-            return DateTime.Now > ExpireDate;
+            return DateTime.Now > ExpiryDate;
         }
 
         public void AddModule(Module module)

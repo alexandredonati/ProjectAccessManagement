@@ -9,10 +9,10 @@ namespace ProjectAccessManagement.Domain.Repository
 {
     public interface IBaseRepository<T> where T : class
     {
-        Task<T> GetByIdAsync(Guid id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(Guid id);
+        T GetById(Guid id);
+        IEnumerable<T> GetAll();
+        void Add(T entity);
+        void Update(T entity);
+        void Delete(Guid id);
     }
 }

@@ -1,0 +1,115 @@
+﻿using AutoMapper;
+using ProjectAccessManagement.Domain.Repository;
+using ProjectAccessManagement.Domain.Entities;
+using ProjectAccessManagement.Domain.Enums;
+using ProjectAccessManagement.Application.DTOs.App;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace ProjectAccessManagement.Application.Services
+{
+    public class AppService
+    {
+        private readonly IApplicationRepository _applicationRepository;
+        private readonly IMapper _mapper;
+
+        public AppService(IApplicationRepository applicationRepository, IMapper mapper)
+        {
+            _applicationRepository = applicationRepository;
+            _mapper = mapper;
+        }
+
+        public AppOutputDto CreateApp(NewAppDto dto)
+        {
+            List<string> errors = new List<string>();
+
+            var existingApplication = _applicationRepository.GetAll()
+                .FirstOrDefault(a => a.Name == dto.Name);
+            if (existingApplication == null)
+            {
+                throw new Exception($"Application with name '{dto.Name}' already exists!");
+            }
+
+            if (!Enum.TryParse<AppType>(dto.Type, true, out var applicationType))
+            {
+                throw new Exception($"Invalid application type: '{dto.Type}'!");
+            }
+
+            var app = new App(dto.Name, applicationType);
+
+            foreach (var moduleName in dto.ModulesNames)
+            {
+                try
+                {
+                    app.AddModule(moduleName);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    errors.Add(ex.Message);
+                }
+            }
+
+            _applicationRepository.Add(app);
+            var result = _mapper.Map<AppOutputDto>(app);
+            result.Errors = errors;
+            return result;
+        }
+
+        public IEnumerable<AppOutputDto> GetAllApps()
+        {
+            var applications = _applicationRepository.GetAll();
+            return _mapper.Map<IEnumerable<AppOutputDto>>(applications);
+        }
+
+        public AppOutputDto AddModulesToApp(AppOutputDto dto)
+        {
+            List<string> errors = new List<string>();
+
+            var application = _applicationRepository.GetById(dto.Id);
+            if (application == null)
+            {
+                throw new Exception($"Application with ID '{dto.Id}' not found!");
+            }
+
+            foreach (var module in dto.AppModules)
+            {
+                try
+                {
+                    application.AddModule(module.Name);
+                }
+                catch (Exception InvalidOperationException)
+                {
+
+                }
+            }
+            _applicationRepository.Update(application);
+            return _mapper.Map<AppOutputDto>(application);
+        }
+
+        public AppOutputDto RemoveModulesFromApp(AppModulesDto dto)
+        {
+            List<string> errors = new List<string>();
+
+            var application = _applicationRepository.GetById(dto.Id);
+            if (application == null)
+            {
+                throw new Exception($"Application with ID '{dto.Id}' not found!");
+            }
+
+            foreach (var moduleName in dto.ModulesNames)
+            {
+                try
+                {
+                    application.RemoveModule(moduleName);
+                }
+                catch (Exception ex)
+                {
+                    errors.Add(ex.Message);
+                }
+            }
+            _applicationRepository.Update(application);
+            var result = _mapper.Map<AppOutputDto>(application);
+            result.Errors = errors;
+            return result;
+        }
+    }
+}

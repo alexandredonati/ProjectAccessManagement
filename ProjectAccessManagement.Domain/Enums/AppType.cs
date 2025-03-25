@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAccessManagement.Domain.Enums
 {
-    public enum ApplicationType
+    public enum AppType
     {
         Web,
         Desktop,

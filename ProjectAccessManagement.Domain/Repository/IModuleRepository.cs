@@ -2,12 +2,7 @@
 
 namespace ProjectAccessManagement.Domain.Repository
 {
-    public interface IModuleRepository
+    public interface IModuleRepository : IBaseRepository<Module>
     {
-        Task<Module> GetByIdAsync(Guid id);
-        Task<IEnumerable<Module>> GetAllAsync();
-        Task AddAsync(Module module);
-        Task UpdateAsync(Module module);
-        Task DeleteAsync(Guid id);
     }
 }

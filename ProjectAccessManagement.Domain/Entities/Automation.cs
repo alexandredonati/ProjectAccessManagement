@@ -57,7 +57,7 @@ namespace ProjectAccessManagement.Domain.Entities
             Credentials.Remove(credential);
         }
 
-        public IEnumerable<Application> GetApplications()
+        public IEnumerable<App> GetApplications()
         {
             var applications = Modules.Select(m => m.Application).Distinct();
             return applications;

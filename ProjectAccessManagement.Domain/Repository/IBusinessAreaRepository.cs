@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAccessManagement.Domain.Repository
 {
-    public interface IBusinessAreaRepository
+    public interface IBusinessAreaRepository : IBaseRepository<BusinessArea>
     {
-        Task<BusinessArea> GetByIdAsync(Guid id);
-        Task<IEnumerable<BusinessArea>> GetAllAsync();
-        Task AddAsync(BusinessArea businessArea);
-        Task UpdateAsync(BusinessArea businessArea);
-        Task DeleteAsync(Guid id);
     }
 }

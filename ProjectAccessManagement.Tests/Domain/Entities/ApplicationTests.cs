@@ -8,7 +8,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void Application_WhenCreated_ShouldNotBeNull()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
 
             Assert.NotNull(application);
         }
@@ -16,7 +16,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void AddModule_WhenDoesNotExist_ShouldAddModule()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var moduleName = "Test Module";
 
             application.AddModule(moduleName);
@@ -29,7 +29,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void AddModule_WhenAlreadyExists_ShouldThrowException()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var moduleName = "Test Module";
 
             application.AddModule(moduleName);
@@ -42,7 +42,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void RemoveModule_WhenExists_ShouldRemoveModule()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var moduleName = "Test Module";
             application.AddModule(moduleName);
             application.RemoveModule(moduleName);
@@ -53,7 +53,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void RemoveModule_WhenDoesNotExist_ShouldThrowException()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var moduleName = "Test Module";
             Assert.Throws<System.InvalidOperationException>(
                 () => application.RemoveModule(moduleName));

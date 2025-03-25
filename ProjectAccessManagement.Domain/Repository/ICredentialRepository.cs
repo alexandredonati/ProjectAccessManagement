@@ -2,12 +2,7 @@
 
 namespace ProjectAccessManagement.Domain.Repository
 {
-    public interface ICredentialRepository
+    public interface ICredentialRepository : IBaseRepository<Credential>
     {
-        Task<Credential> GetByIdAsync(Guid id);
-        Task<IEnumerable<Credential>> GetAllAsync();
-        Task AddAsync(Credential credential);
-        Task UpdateAsync(Credential credential);
-        Task DeleteAsync(Guid id);
     }
 }

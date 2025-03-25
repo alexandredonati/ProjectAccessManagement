@@ -14,43 +14,42 @@ namespace ProjectAccessManagement.Repository.Repositories
             _dbSet = _dbContext.Set<T>();
         }
 
-        public async Task AddAsync(T entity)
+        public void Add(T entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            await _dbContext.AddAsync(entity);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.Add(entity);
+            _dbContext.SaveChanges();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public void Delete(Guid id)
         {
-            var entity = await GetByIdAsync(id);
+            var entity = GetById(id);
             if (entity == null)
             {
                 throw new KeyNotFoundException($"Application with id {id} not found.");
             }
 
             _dbSet.Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
-        public Task UpdateAsync(T entity)
+        public void Update(T entity)
         {
             _dbSet.Update(entity);
-            return _dbContext.SaveChangesAsync();
+            _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public IEnumerable<T> GetAll()
         {
-            return await _dbSet.ToListAsync();
+            return _dbSet.ToList();
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public T GetById(Guid id)
         {
-            return await _dbSet.FindAsync(id);
+            return _dbSet.Find(id);
         }
-
     }
 }

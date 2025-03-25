@@ -13,7 +13,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void CreateCredential_WhenExistingApplication_ShouldCreateCredential()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
 
             Assert.NotNull(credential);
@@ -24,7 +24,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void CreateCredential_WhenNullApplication_ShouldThrowException()
         {
-            Application application = null;
+            App application = null;
 
             Assert.Throws<System.ArgumentNullException>(
                 () => new Credential("Test Credential", application, CredentialType.LoginPassword));
@@ -33,7 +33,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void AddModule_WhenModuleFromSameApplication_SouldAddModule()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
             var module = new Module("Test Module", application);
 
@@ -45,8 +45,8 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void AddModule_WhenModuleFromDifferentApplication_ShouldThrowException()
         {
-            var application1 = new Application("Test Application 1", ApplicationType.Web);
-            var application2 = new Application("Test Application 2", ApplicationType.Web);
+            var application1 = new App("Test Application 1", AppType.Web);
+            var application2 = new App("Test Application 2", AppType.Web);
 
             var credential = new Credential("Test Credential", application1, CredentialType.LoginPassword);
             var module = new Module("Test Module", application2);
@@ -58,7 +58,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void AddModule_WhenModuleBelongsToCredential_ShouldThrowException()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
             var module = new Module("Test Module", application);
 
@@ -71,7 +71,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void AddModule_WhenModuleNameBelongsToCredential_ShouldThrowException()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
             var moduleName = "Test Module";
             var module = new Module(moduleName, application);
@@ -85,7 +85,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void AddModule_WhenModuleNameNotInCredential_ShouldAddModule()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
             var moduleName = "Test Module";
 
@@ -99,19 +99,19 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void UpdateExpireDate_WhenNewDate_ShouldUpdateExpireDate()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
             var newDate = DateTime.Now.AddDays(1);
 
             credential.UpdateExpireDate(newDate);
 
-            Assert.Equal(newDate, credential.ExpireDate);
+            Assert.Equal(newDate, credential.ExpiryDate);
         }
 
         [Fact]
         public void RemoveModule_WhenModuleExistsInCredential_ShouldRemoveModule()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
             var module = new Module("Test Module", application);
 
@@ -124,7 +124,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void RemoveModule_WhenModuleExistsButNotInCredential_ShouldThrowException()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
             var module1 = new Module("Test Module 1", application);
             var module2 = new Module("Test Module 2", application);
@@ -138,7 +138,7 @@ namespace ProjectAccessManagement.Tests.Domain.Entities
         [Fact]
         public void RemoveModule_WhenModuleNameNotInCredential_ShouldThrowException()
         {
-            var application = new Application("Test Application", ApplicationType.Web);
+            var application = new App("Test Application", AppType.Web);
             var credential = new Credential("Test Credential", application, CredentialType.LoginPassword);
             var module = new Module("Test Module", application);
 

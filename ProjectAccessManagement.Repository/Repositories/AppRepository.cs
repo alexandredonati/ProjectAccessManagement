@@ -3,9 +3,9 @@ using ProjectAccessManagement.Domain.Repository;
 
 namespace ProjectAccessManagement.Repository.Repositories
 {
-    public class ApplicationRepository : BaseRepository<Application>, IApplicationRepository
+    public class AppRepository : BaseRepository<App>, IApplicationRepository
     {
-        public ApplicationRepository(ProjectAccessManagementContext context) : base(context)
+        public AppRepository(ProjectAccessManagementContext context) : base(context)
         {
         }
     }

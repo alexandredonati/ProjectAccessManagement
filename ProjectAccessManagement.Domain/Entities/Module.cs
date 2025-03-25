@@ -10,9 +10,9 @@ namespace ProjectAccessManagement.Domain.Entities
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
-        public Application Application { get; private set; }
+        public App Application { get; private set; }
 
-        public Module(string name, Application application)
+        public Module(string name, App application)
         {
             Name = name;
             Application = application;

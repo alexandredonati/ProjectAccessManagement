@@ -15,7 +15,7 @@ namespace ProjectAccessManagement.Repository
         }
         public DbSet<BusinessArea> BusinessAreas { get; set; }
         public DbSet<Module> Modules { get; set; }
-        public DbSet<Application> Applications { get; set; }
+        public DbSet<App> Applications { get; set; }
         public DbSet<Automation> Automations { get; set; }
         public DbSet<Credential> Credentials { get; set; }
 

@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace ProjectAccessManagement.Domain.Entities
 {
-    public class Application
+    public class App
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
-        public ApplicationType AppType { get; private set; }
+        public AppType AppType { get; private set; }
 
         public ICollection<Module> Modules { get; private set; } = [];
 
-        public Application(string name, ApplicationType appType)
+        public App(string name, AppType appType)
         {
             Name = name;
             AppType = appType;
