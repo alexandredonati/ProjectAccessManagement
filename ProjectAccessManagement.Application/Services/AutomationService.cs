@@ -19,7 +19,12 @@ namespace ProjectAccessManagement.Application.Services
         private readonly ICredentialRepository _credentialRepository;
         private readonly IMapper _mapper;
 
-        public AutomationService(IAutomationRepository automationRepository, IBusinessAreaRepository businessAreaRepository, IModuleRepository moduleRepository, ICredentialRepository credentialRepository, IMapper mapper)
+        public AutomationService(
+            IAutomationRepository automationRepository,
+            IBusinessAreaRepository businessAreaRepository,
+            IModuleRepository moduleRepository,
+            ICredentialRepository credentialRepository,
+            IMapper mapper)
         {
             _automationRepository = automationRepository;
             _businessAreaRepository = businessAreaRepository;
@@ -109,15 +114,16 @@ namespace ProjectAccessManagement.Application.Services
             result.Errors = errors;
             return result;
         }
+
         public AutomationOutputDto RemoveModulesAndCredentialsFromAutomation(AutomationUpdateDto dto)
         {
-            List<string> errors = new List<string>();
-
             var automation = _automationRepository.GetById(dto.Id);
             if (automation == null)
             {
                 throw new Exception($"Automation with ID {dto.Id} not found!");
             }
+
+            var errors = new List<string>();
 
             foreach (var moduleId in dto.ModulesIds)
             {

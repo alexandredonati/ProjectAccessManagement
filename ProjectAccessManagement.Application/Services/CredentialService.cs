@@ -19,7 +19,7 @@ namespace ProjectAccessManagement.Application.Services
         private readonly IMapper _mapper;
 
         public CredentialService(
-            ICredentialRepository credentialRepository, 
+            ICredentialRepository credentialRepository,
             IApplicationRepository applicationRepository,
             IModuleRepository moduleRepository,
             IMapper mapper)

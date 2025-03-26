@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Application", "ProjectAccessManagement.Application\ProjectAccessManagement.Application.csproj", "{864F5768-EBDC-49FE-9B73-E4E0013A314D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Api", "ProjectAccessManagement.Api\ProjectAccessManagement.Api.csproj", "{F54E9BF3-FE3D-444C-AE69-CB7E2C4797F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{864F5768-EBDC-49FE-9B73-E4E0013A314D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{864F5768-EBDC-49FE-9B73-E4E0013A314D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{864F5768-EBDC-49FE-9B73-E4E0013A314D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54E9BF3-FE3D-444C-AE69-CB7E2C4797F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54E9BF3-FE3D-444C-AE69-CB7E2C4797F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54E9BF3-FE3D-444C-AE69-CB7E2C4797F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54E9BF3-FE3D-444C-AE69-CB7E2C4797F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

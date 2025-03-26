@@ -18,6 +18,8 @@ namespace ProjectAccessManagement.Domain.Entities
         public bool AllowsMultiAccess { get; private set; }
         public ICollection<Module> Modules { get; private set; } = [];
 
+        protected Credential() { } // Constructor for EF Core
+
         public Credential(string credentialName, App application, CredentialType type)
         {
             if (application == null)
@@ -39,21 +41,6 @@ namespace ProjectAccessManagement.Domain.Entities
             Application = application;
             CredentialType = type;
             ExpiryDate = expireDate;
-        }
-
-        public void UpdateExpireDate(DateTime newDate)
-        {
-            ExpiryDate = newDate;
-        }
-
-        public void SetMultiAccess(bool allow)
-        {
-            AllowsMultiAccess = allow;
-        }
-
-        public bool IsExpired()
-        {
-            return DateTime.Now > ExpiryDate;
         }
 
         public void AddModule(Module module)
@@ -111,5 +98,21 @@ namespace ProjectAccessManagement.Domain.Entities
 
             Modules.Remove(module);
         }
+
+        public void UpdateExpireDate(DateTime newDate)
+        {
+            ExpiryDate = newDate;
+        }
+
+        public void SetMultiAccess(bool allow)
+        {
+            AllowsMultiAccess = allow;
+        }
+
+        public bool IsExpired()
+        {
+            return DateTime.Now > ExpiryDate;
+        }
     }
 }
+

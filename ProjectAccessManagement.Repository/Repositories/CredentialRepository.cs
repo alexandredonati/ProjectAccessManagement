@@ -7,5 +7,6 @@ namespace ProjectAccessManagement.Repository.Repositories
     {
         public CredentialRepository(ProjectAccessManagementContext context) : base(context)
         {
+        }
     }
 }

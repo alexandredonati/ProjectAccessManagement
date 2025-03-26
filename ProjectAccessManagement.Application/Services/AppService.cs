@@ -54,10 +54,30 @@ namespace ProjectAccessManagement.Application.Services
             return result;
         }
 
+        public void DeleteApp(Guid id)
+        {
+            var application = _applicationRepository.GetById(id);
+            if (application == null)
+            {
+                throw new Exception($"Application with ID '{id}' not found!");
+            }
+            _applicationRepository.Delete(id);
+        }
+
         public IEnumerable<AppOutputDto> GetAllApps()
         {
             var applications = _applicationRepository.GetAll();
             return _mapper.Map<IEnumerable<AppOutputDto>>(applications);
+        }
+
+        public AppOutputDto GetAppById(Guid id)
+        {
+            var application = _applicationRepository.GetById(id);
+            if (application == null)
+            {
+                throw new Exception($"Application with ID '{id}' not found!");
+            }
+            return _mapper.Map<AppOutputDto>(application);
         }
 
         public AppOutputDto AddModulesToApp(AppOutputDto dto)
@@ -76,7 +96,7 @@ namespace ProjectAccessManagement.Application.Services
                 {
                     application.AddModule(module.Name);
                 }
-                catch (Exception InvalidOperationException)
+                catch (Exception ex)
                 {
                     errors.Add($"Error adding module: {ex.Message}");
                 }

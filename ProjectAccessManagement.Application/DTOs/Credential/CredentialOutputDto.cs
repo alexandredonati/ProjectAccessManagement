@@ -13,5 +13,6 @@ namespace ProjectAccessManagement.Application.DTOs.Credential
         public bool AllowsMultiAccess { get; set; }
         public AppService Application { get; set; }
         public IEnumerable<ModuleDto> Modules { get; set; }
+        public List<string> Errors { get; set; } = [];
     }
 }
