@@ -60,7 +60,7 @@ namespace ProjectAccessManagement.Domain.Entities
         {
             if (module.Application.Id != this.Application.Id)
             {
-                throw new InvalidOperationException("Module does not belong to the application which the credential is related to.");
+                throw new InvalidOperationException($"Module '{module.Id}' does not belong to the application which the credential is related to.");
             }
 
             if (Modules.Any(m => m.Id == module.Id))

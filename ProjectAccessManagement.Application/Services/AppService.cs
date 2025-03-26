@@ -20,8 +20,6 @@ namespace ProjectAccessManagement.Application.Services
 
         public AppOutputDto CreateApp(NewAppDto dto)
         {
-            List<string> errors = new List<string>();
-
             var existingApplication = _applicationRepository.GetAll()
                 .FirstOrDefault(a => a.Name == dto.Name);
             if (existingApplication == null)
@@ -33,6 +31,8 @@ namespace ProjectAccessManagement.Application.Services
             {
                 throw new Exception($"Invalid application type: '{dto.Type}'!");
             }
+
+            var errors = new List<string>();
 
             var app = new App(dto.Name, applicationType);
 
@@ -62,13 +62,13 @@ namespace ProjectAccessManagement.Application.Services
 
         public AppOutputDto AddModulesToApp(AppOutputDto dto)
         {
-            List<string> errors = new List<string>();
-
             var application = _applicationRepository.GetById(dto.Id);
             if (application == null)
             {
                 throw new Exception($"Application with ID '{dto.Id}' not found!");
             }
+
+            var errors = new List<string>();
 
             foreach (var module in dto.AppModules)
             {
@@ -78,7 +78,7 @@ namespace ProjectAccessManagement.Application.Services
                 }
                 catch (Exception InvalidOperationException)
                 {
-
+                    errors.Add($"Error adding module: {ex.Message}");
                 }
             }
             _applicationRepository.Update(application);
@@ -87,13 +87,13 @@ namespace ProjectAccessManagement.Application.Services
 
         public AppOutputDto RemoveModulesFromApp(AppModulesDto dto)
         {
-            List<string> errors = new List<string>();
-
             var application = _applicationRepository.GetById(dto.Id);
             if (application == null)
             {
                 throw new Exception($"Application with ID '{dto.Id}' not found!");
             }
+
+            var errors = new List<string>();
 
             foreach (var moduleName in dto.ModulesNames)
             {
@@ -103,7 +103,7 @@ namespace ProjectAccessManagement.Application.Services
                 }
                 catch (Exception ex)
                 {
-                    errors.Add(ex.Message);
+                    errors.Add($"Error removing module: {ex.Message}");
                 }
             }
             _applicationRepository.Update(application);

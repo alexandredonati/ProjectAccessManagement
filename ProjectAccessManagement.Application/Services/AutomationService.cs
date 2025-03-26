@@ -62,13 +62,13 @@ namespace ProjectAccessManagement.Application.Services
 
         public AutomationOutputDto AddModulesAndCredentialsToAutomation(AutomationUpdateDto dto)
         {
-            List<string> errors = new List<string>();
-
             var automation = _automationRepository.GetById(dto.Id);
             if (automation == null)
             {
                 throw new Exception($"Automation with ID {dto.Id} not found!");
             }
+
+            var errors = new List<string>();
 
             foreach (var moduleId in dto.ModulesIds)
             {
@@ -83,7 +83,7 @@ namespace ProjectAccessManagement.Application.Services
                 }
                 catch (Exception ex)
                 {
-                    errors.Add(ex.Message);
+                    errors.Add($"Error adding module: {ex.Message}");
                 }
             }
 
@@ -100,7 +100,7 @@ namespace ProjectAccessManagement.Application.Services
                 }
                 catch (Exception ex)
                 {
-                    errors.Add(ex.Message);
+                    errors.Add($"Error adding credential: {ex.Message}");
                 }
             }
 
@@ -132,7 +132,7 @@ namespace ProjectAccessManagement.Application.Services
                 }
                 catch (Exception ex)
                 {
-                    errors.Add(ex.Message);
+                    errors.Add($"Error removing module: {ex.Message}");
                 }
             }
 
@@ -149,7 +149,7 @@ namespace ProjectAccessManagement.Application.Services
                 }
                 catch (Exception ex)
                 {
-                    errors.Add(ex.Message);
+                    errors.Add($"Error removing credential: {ex.Message}");
                 }
             }
 

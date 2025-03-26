@@ -14,6 +14,6 @@ namespace ProjectAccessManagement.Application.DTOs.Credential
         public DateTime ExpiryDate { get; set; }
         public bool AllowsMultiAccess { get; set; }
         public Guid ApplicationId { get; set; }
-        public IEnumerable<ModuleDto> Modules { get; set; }
+        public IEnumerable<ModuleSimpleDto> Modules { get; set; }
     }
 }
