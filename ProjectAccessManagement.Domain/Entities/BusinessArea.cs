@@ -12,6 +12,8 @@ namespace ProjectAccessManagement.Domain.Entities
         public string Name { get; private set; }
         public ICollection<Automation> Automations { get; private set; } = [];
 
+        protected BusinessArea() { }
+
         public BusinessArea(string name) 
         {
             Name = name;

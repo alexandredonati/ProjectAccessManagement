@@ -16,6 +16,8 @@ namespace ProjectAccessManagement.Domain.Entities
 
         public ICollection<Module> Modules { get; private set; } = [];
 
+        protected App() { }
+
         public App(string name, AppType appType)
         {
             Name = name;

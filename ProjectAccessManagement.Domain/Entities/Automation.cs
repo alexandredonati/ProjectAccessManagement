@@ -15,6 +15,7 @@ namespace ProjectAccessManagement.Domain.Entities
         public ICollection<Module> Modules { get; private set; } = [];
         public ICollection<Credential> Credentials { get; private set; } = [];
 
+        protected Automation() { }
 
         public Automation(string name, BusinessArea businessArea, int businessId)
         {
