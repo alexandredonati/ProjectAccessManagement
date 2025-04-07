@@ -29,7 +29,7 @@ jobs:
       run: dotnet build ProjectAccessManagement.sln --configuration Release --no-restore
 
     - name: Executar testes
-      run: dotnet test ProjectAccessManagement.sln --no-build --verbosity normal
+      run: dotnet test ProjectAccessManagement.sln --verbosity normal
 
     - name: Login no Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
