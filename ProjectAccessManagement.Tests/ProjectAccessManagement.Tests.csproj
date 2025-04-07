@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectAccessManagement.Domain\ProjectAccessManagement.Domain.csproj" />
+    <ProjectReference Include="..\ProjectAccessManagement.Application\ProjectAccessManagement.Application.csproj" />
+    <ProjectReference Include="..\ProjectAccessManagement.Repository\ProjectAccessManagement.Repository.csproj" />
   </ItemGroup>
 
   <ItemGroup>

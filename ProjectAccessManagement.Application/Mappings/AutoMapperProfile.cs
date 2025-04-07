@@ -5,6 +5,7 @@ using ProjectAccessManagement.Application.DTOs.BusinessArea;
 using ProjectAccessManagement.Application.DTOs.Credential;
 using ProjectAccessManagement.Application.DTOs.Module;
 using ProjectAccessManagement.Domain.Entities;
+using ProjectAccessManagement.Domain.Enums;
 
 namespace ProjectAccessManagement.Application.Mappings
 {
@@ -24,7 +25,12 @@ namespace ProjectAccessManagement.Application.Mappings
 
             // Application mappings
             CreateMap<App, AppModulesDto>().ReverseMap();
-            CreateMap<App, AppOutputDto>().ReverseMap();
+            CreateMap<App, AppOutputDto>()
+                .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.AppType.ToString()))
+                .ForMember(dest => dest.AppModules, opt => opt.MapFrom(src => src.Modules));
+            CreateMap<AppOutputDto, App>()
+                .ForMember(dest => dest.AppType, opt => opt.MapFrom(src => Enum.Parse<AppType>(src.Type)))
+                .ForMember(dest => dest.Modules, opt => opt.Ignore());
             CreateMap<App, AppSimpleDto>().ReverseMap();
             CreateMap<App, NewAppDto>().ReverseMap();
 
@@ -37,7 +43,6 @@ namespace ProjectAccessManagement.Application.Mappings
             // Business Area mappings
             CreateMap<BusinessArea, BusinessAreaOutputDto>().ReverseMap();
             CreateMap<BusinessArea, NewBusinessAreaDto>().ReverseMap();
-
         }
     }
 } 

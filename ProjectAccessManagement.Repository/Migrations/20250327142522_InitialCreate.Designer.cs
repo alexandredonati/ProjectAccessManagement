@@ -12,7 +12,7 @@ using ProjectAccessManagement.Repository;
 namespace ProjectAccessManagement.Repository.Migrations
 {
     [DbContext(typeof(ProjectAccessManagementContext))]
-    [Migration("20250326220400_InitialCreate")]
+    [Migration("20250327142522_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,18 +25,65 @@ namespace ProjectAccessManagement.Repository.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AutomationCredentials", b =>
+                {
+                    b.Property<Guid>("AutomationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CredentialId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AutomationId", "CredentialId");
+
+                    b.HasIndex("CredentialId");
+
+                    b.ToTable("AutomationCredentials");
+                });
+
+            modelBuilder.Entity("AutomationModules", b =>
+                {
+                    b.Property<Guid>("AutomationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ModuleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AutomationId", "ModuleId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("AutomationModules");
+                });
+
+            modelBuilder.Entity("CredentialModules", b =>
+                {
+                    b.Property<Guid>("CredentialId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ModuleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CredentialId", "ModuleId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("CredentialModules");
+                });
+
             modelBuilder.Entity("ProjectAccessManagement.Domain.Entities.App", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AppType")
-                        .HasColumnType("int");
+                    b.Property<string>("AppType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -57,7 +104,8 @@ namespace ProjectAccessManagement.Repository.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -74,7 +122,8 @@ namespace ProjectAccessManagement.Repository.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -93,24 +142,21 @@ namespace ProjectAccessManagement.Repository.Migrations
                     b.Property<Guid>("ApplicationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AutomationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("CredentialType")
-                        .HasColumnType("int");
+                    b.Property<string>("CredentialType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
-
-                    b.HasIndex("AutomationId");
 
                     b.ToTable("Credentials");
                 });
@@ -124,25 +170,61 @@ namespace ProjectAccessManagement.Repository.Migrations
                     b.Property<Guid>("ApplicationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AutomationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CredentialId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("AutomationId");
-
-                    b.HasIndex("CredentialId");
-
                     b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("AutomationCredentials", b =>
+                {
+                    b.HasOne("ProjectAccessManagement.Domain.Entities.Automation", null)
+                        .WithMany()
+                        .HasForeignKey("AutomationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ProjectAccessManagement.Domain.Entities.Credential", null)
+                        .WithMany()
+                        .HasForeignKey("CredentialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AutomationModules", b =>
+                {
+                    b.HasOne("ProjectAccessManagement.Domain.Entities.Automation", null)
+                        .WithMany()
+                        .HasForeignKey("AutomationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ProjectAccessManagement.Domain.Entities.Module", null)
+                        .WithMany()
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CredentialModules", b =>
+                {
+                    b.HasOne("ProjectAccessManagement.Domain.Entities.Credential", null)
+                        .WithMany()
+                        .HasForeignKey("CredentialId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ProjectAccessManagement.Domain.Entities.Module", null)
+                        .WithMany()
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectAccessManagement.Domain.Entities.Automation", b =>
@@ -164,10 +246,6 @@ namespace ProjectAccessManagement.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectAccessManagement.Domain.Entities.Automation", null)
-                        .WithMany("Credentials")
-                        .HasForeignKey("AutomationId");
-
                     b.Navigation("Application");
                 });
 
@@ -179,14 +257,6 @@ namespace ProjectAccessManagement.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectAccessManagement.Domain.Entities.Automation", null)
-                        .WithMany("Modules")
-                        .HasForeignKey("AutomationId");
-
-                    b.HasOne("ProjectAccessManagement.Domain.Entities.Credential", null)
-                        .WithMany("Modules")
-                        .HasForeignKey("CredentialId");
-
                     b.Navigation("Application");
                 });
 
@@ -195,21 +265,9 @@ namespace ProjectAccessManagement.Repository.Migrations
                     b.Navigation("Modules");
                 });
 
-            modelBuilder.Entity("ProjectAccessManagement.Domain.Entities.Automation", b =>
-                {
-                    b.Navigation("Credentials");
-
-                    b.Navigation("Modules");
-                });
-
             modelBuilder.Entity("ProjectAccessManagement.Domain.Entities.BusinessArea", b =>
                 {
                     b.Navigation("Automations");
-                });
-
-            modelBuilder.Entity("ProjectAccessManagement.Domain.Entities.Credential", b =>
-                {
-                    b.Navigation("Modules");
                 });
 #pragma warning restore 612, 618
         }

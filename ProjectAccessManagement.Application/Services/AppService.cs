@@ -22,7 +22,7 @@ namespace ProjectAccessManagement.Application.Services
         {
             var existingApplication = _applicationRepository.GetAll()
                 .FirstOrDefault(a => a.Name == dto.Name);
-            if (existingApplication == null)
+            if (existingApplication != null)
             {
                 throw new Exception($"Application with name '{dto.Name}' already exists!");
             }
