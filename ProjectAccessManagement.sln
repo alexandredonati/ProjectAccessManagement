@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Application", "ProjectAccessManagement.Application\ProjectAccessManagement.Application.csproj", "{864F5768-EBDC-49FE-9B73-E4E0013A314D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.Api", "ProjectAccessManagement.Api\ProjectAccessManagement.Api.csproj", "{F54E9BF3-FE3D-444C-AE69-CB7E2C4797F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAccessManagement.API", "ProjectAccessManagement.API\ProjectAccessManagement.API.csproj", "{F54E9BF3-FE3D-444C-AE69-CB7E2C4797F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
