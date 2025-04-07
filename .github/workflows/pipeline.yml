@@ -24,12 +24,15 @@ jobs:
 
     - name: Restaurar dependências
       run: dotnet restore ProjectAccessManagement.sln
+      working-directory: ./ProjectAccessManagement
 
     - name: Compilar a solução
       run: dotnet build ProjectAccessManagement.sln --configuration Release --no-restore
+      working-directory: ./ProjectAccessManagement
 
     - name: Executar testes
       run: dotnet test ProjectAccessManagement.sln --no-build --verbosity normal
+      working-directory: ./ProjectAccessManagement
 
     - name: Login no Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
@@ -38,6 +41,7 @@ jobs:
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:latest \
         -f ProjectAccessManagement.API/Dockerfile .
+      working-directory: ./ProjectAccessManagement
 
     - name: Push da imagem para o Docker Hub
       run: |
